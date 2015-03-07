@@ -8,7 +8,7 @@
 
 #import "ViewController.h"
 
-@interface ViewController ()
+@interface ViewController () <PLPartyTimeDelegate>
 @property (weak, nonatomic) IBOutlet UITextView *logView;
 @property (weak, nonatomic) IBOutlet UITextField *inputView;
 @property (weak, nonatomic) IBOutlet UIButton *enterButton;
@@ -16,7 +16,7 @@
 @end
 
 
-@implementation ViewController
+@implementation ViewController 
 
 - (void)viewDidLoad {
     [super viewDidLoad];
@@ -26,14 +26,16 @@
     [Console writeLine: @"You are currently alone"];
     [self.partyTime joinParty];
     
-    [Console writeLine:@"Please enter your username"];
+    [Console writeLine:@"Type 1 for sending or anything else for listening"];
     [Console readLine:@selector(continueProc:) withObject:self];
 }
 
 
 - (void)continueProc:(NSString*)data {
-    [Console writeLine:@"Your username is:"];
-    [Console writeLine:data];
+    if ([data isEqualToString:@"1"]) {
+        NSError *error;
+        [self.partyTime sendData:[@"Hello!!!" dataUsingEncoding:NSUTF8StringEncoding] withMode:MCSessionSendDataReliable error:&error];
+    }
 }
 
 - (void)didReceiveMemoryWarning {
