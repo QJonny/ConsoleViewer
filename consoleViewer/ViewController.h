@@ -8,10 +8,10 @@
 
 #import <UIKit/UIKit.h>
 #import "Console.h"
-#import "PLPartyTime.h"
+#import "MHMultipeerWrapper.h"
 
 @interface ViewController : UIViewController
 
-@property PLPartyTime* partyTime;
+@property MHMultipeerWrapper* mcWrapper;
 @end
 

@@ -16,7 +16,8 @@
 		2B8092C91A9F69620059F89D /* LaunchScreen.xib in Resources */ = {isa = PBXBuildFile; fileRef = 2B8092C71A9F69620059F89D /* LaunchScreen.xib */; };
 		2B8092D51A9F69620059F89D /* consoleViewerTests.m in Sources */ = {isa = PBXBuildFile; fileRef = 2B8092D41A9F69620059F89D /* consoleViewerTests.m */; };
 		2B8092DF1A9F70340059F89D /* Console.m in Sources */ = {isa = PBXBuildFile; fileRef = 2B8092DE1A9F70340059F89D /* Console.m */; };
-		2B8092E41A9F7EBB0059F89D /* PLPartyTime.m in Sources */ = {isa = PBXBuildFile; fileRef = 2B8092E31A9F7EBB0059F89D /* PLPartyTime.m */; };
+		2B8093511AB895710059F89D /* MHPeer.m in Sources */ = {isa = PBXBuildFile; fileRef = 2B8093501AB895710059F89D /* MHPeer.m */; };
+		2B8093541AB895B20059F89D /* MHMultipeerWrapper.m in Sources */ = {isa = PBXBuildFile; fileRef = 2B8093531AB895B20059F89D /* MHMultipeerWrapper.m */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -46,8 +47,10 @@
 		2B8092D41A9F69620059F89D /* consoleViewerTests.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = consoleViewerTests.m; sourceTree = "<group>"; };
 		2B8092DE1A9F70340059F89D /* Console.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = Console.m; sourceTree = "<group>"; };
 		2B8092E01A9F70470059F89D /* Console.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Console.h; sourceTree = "<group>"; };
-		2B8092E21A9F7EBB0059F89D /* PLPartyTime.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PLPartyTime.h; sourceTree = "<group>"; };
-		2B8092E31A9F7EBB0059F89D /* PLPartyTime.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = PLPartyTime.m; sourceTree = "<group>"; };
+		2B80934F1AB895220059F89D /* MHPeer.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; name = MHPeer.h; path = "../../multihop-lib-ios/Multihop/MHPeer.h"; sourceTree = "<group>"; };
+		2B8093501AB895710059F89D /* MHPeer.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = MHPeer.m; path = "../../multihop-lib-ios/Multihop/MHPeer.m"; sourceTree = "<group>"; };
+		2B8093521AB895810059F89D /* MHMultipeerWrapper.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; name = MHMultipeerWrapper.h; path = "../../multihop-lib-ios/Multihop/MHMultipeerWrapper.h"; sourceTree = "<group>"; };
+		2B8093531AB895B20059F89D /* MHMultipeerWrapper.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = MHMultipeerWrapper.m; path = "../../multihop-lib-ios/Multihop/MHMultipeerWrapper.m"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -89,7 +92,7 @@
 		2B8092B41A9F69620059F89D /* consoleViewer */ = {
 			isa = PBXGroup;
 			children = (
-				2B8092E11A9F7E8D0059F89D /* PartyTime */,
+				2B8093491AB894780059F89D /* Multihop */,
 				2B8092E01A9F70470059F89D /* Console.h */,
 				2B8092DE1A9F70340059F89D /* Console.m */,
 				2B8092B91A9F69620059F89D /* AppDelegate.h */,
@@ -131,13 +134,55 @@
 			name = "Supporting Files";
 			sourceTree = "<group>";
 		};
-		2B8092E11A9F7E8D0059F89D /* PartyTime */ = {
+		2B8093491AB894780059F89D /* Multihop */ = {
 			isa = PBXGroup;
 			children = (
-				2B8092E21A9F7EBB0059F89D /* PLPartyTime.h */,
-				2B8092E31A9F7EBB0059F89D /* PLPartyTime.m */,
+				2B80934C1AB894B90059F89D /* Communication */,
+				2B80934B1AB894B10059F89D /* Routing */,
+				2B80934A1AB894AA0059F89D /* Interface */,
 			);
-			name = PartyTime;
+			name = Multihop;
+			sourceTree = "<group>";
+		};
+		2B80934A1AB894AA0059F89D /* Interface */ = {
+			isa = PBXGroup;
+			children = (
+			);
+			name = Interface;
+			sourceTree = "<group>";
+		};
+		2B80934B1AB894B10059F89D /* Routing */ = {
+			isa = PBXGroup;
+			children = (
+			);
+			name = Routing;
+			sourceTree = "<group>";
+		};
+		2B80934C1AB894B90059F89D /* Communication */ = {
+			isa = PBXGroup;
+			children = (
+				2B8093531AB895B20059F89D /* MHMultipeerWrapper.m */,
+				2B8093521AB895810059F89D /* MHMultipeerWrapper.h */,
+				2B80934E1AB894EF0059F89D /* Peers */,
+				2B80934D1AB894E00059F89D /* Messages */,
+			);
+			name = Communication;
+			sourceTree = "<group>";
+		};
+		2B80934D1AB894E00059F89D /* Messages */ = {
+			isa = PBXGroup;
+			children = (
+			);
+			name = Messages;
+			sourceTree = "<group>";
+		};
+		2B80934E1AB894EF0059F89D /* Peers */ = {
+			isa = PBXGroup;
+			children = (
+				2B8093501AB895710059F89D /* MHPeer.m */,
+				2B80934F1AB895220059F89D /* MHPeer.h */,
+			);
+			name = Peers;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -189,6 +234,7 @@
 				TargetAttributes = {
 					2B8092B11A9F69620059F89D = {
 						CreatedOnToolsVersion = 6.3;
+						DevelopmentTeam = 8HKT3VB273;
 					};
 					2B8092CD1A9F69620059F89D = {
 						CreatedOnToolsVersion = 6.3;
@@ -241,10 +287,11 @@
 			buildActionMask = 2147483647;
 			files = (
 				2B8092BE1A9F69620059F89D /* consoleViewer.xcdatamodeld in Sources */,
-				2B8092E41A9F7EBB0059F89D /* PLPartyTime.m in Sources */,
 				2B8092BB1A9F69620059F89D /* AppDelegate.m in Sources */,
 				2B8092C11A9F69620059F89D /* ViewController.m in Sources */,
 				2B8092B81A9F69620059F89D /* main.m in Sources */,
+				2B8093511AB895710059F89D /* MHPeer.m in Sources */,
+				2B8093541AB895B20059F89D /* MHMultipeerWrapper.m in Sources */,
 				2B8092DF1A9F70340059F89D /* Console.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -371,9 +418,22 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				CODE_SIGN_IDENTITY = "iPhone Developer";
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
+				HEADER_SEARCH_PATHS = (
+					"$(inherited)",
+					"/Applications/Xcode-Beta.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/include",
+				);
 				INFOPLIST_FILE = consoleViewer/Info.plist;
+				IPHONEOS_DEPLOYMENT_TARGET = 8.1;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
+				LIBRARY_SEARCH_PATHS = (
+					"$(inherited)",
+					"$(USER_LIBRARY_DIR)/Developer/Xcode/DerivedData/Multihop-gakaaiizotwmdcddxfczjugykbvy/Build/Products/Debug-iphoneos",
+				);
 				PRODUCT_NAME = "$(TARGET_NAME)";
+				PROVISIONING_PROFILE = "";
+				TARGETED_DEVICE_FAMILY = "1,2";
 			};
 			name = Debug;
 		};
@@ -381,9 +441,22 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				CODE_SIGN_IDENTITY = "iPhone Developer";
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
+				HEADER_SEARCH_PATHS = (
+					"$(inherited)",
+					"/Applications/Xcode-Beta.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/include",
+				);
 				INFOPLIST_FILE = consoleViewer/Info.plist;
+				IPHONEOS_DEPLOYMENT_TARGET = 8.1;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
+				LIBRARY_SEARCH_PATHS = (
+					"$(inherited)",
+					"$(USER_LIBRARY_DIR)/Developer/Xcode/DerivedData/Multihop-gakaaiizotwmdcddxfczjugykbvy/Build/Products/Debug-iphoneos",
+				);
 				PRODUCT_NAME = "$(TARGET_NAME)";
+				PROVISIONING_PROFILE = "";
+				TARGETED_DEVICE_FAMILY = "1,2";
 			};
 			name = Release;
 		};

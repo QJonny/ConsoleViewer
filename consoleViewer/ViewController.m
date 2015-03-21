@@ -8,7 +8,7 @@
 
 #import "ViewController.h"
 
-@interface ViewController () <PLPartyTimeDelegate>
+@interface ViewController () <MHMultipeerWrapperDelegate>
 @property (weak, nonatomic) IBOutlet UITextView *logView;
 @property (weak, nonatomic) IBOutlet UITextField *inputView;
 @property (weak, nonatomic) IBOutlet UIButton *enterButton;
@@ -21,20 +21,21 @@
 - (void)viewDidLoad {
     [super viewDidLoad];
     [Console init:self.logView withTextField:self.inputView withEnterButton:self.enterButton];
-    self.partyTime = [[PLPartyTime alloc] initWithServiceType:@"one2one"];
-    self.partyTime.delegate = self;
-    [Console writeLine: @"You are currently alone"];
-    [self.partyTime joinParty];
+    self.mcWrapper = [[MHMultipeerWrapper alloc] initWithServiceType:@"test"];
+    self.mcWrapper.delegate = self;
+    [Console writeLine: [NSString stringWithFormat:@"You are currently alone. Your id is %@", [self.mcWrapper getPeer]]];
+
+    [self.mcWrapper connectToAll];
     
-    [Console writeLine:@"Type 1 for sending or anything else for listening"];
-    [Console readLine:@selector(continueProc:) withObject:self];
+    //[Console writeLine:@"Type 1 for sending or anything else for listening"];
+    //[Console readLine:@selector(continueProc:) withObject:self];
 }
 
 
 - (void)continueProc:(NSString*)data {
     if ([data isEqualToString:@"1"]) {
         NSError *error;
-        [self.partyTime sendData:[@"Hello!!!" dataUsingEncoding:NSUTF8StringEncoding] withMode:MCSessionSendDataReliable error:&error];
+        [self.mcWrapper sendData:[@"Hello!!!" dataUsingEncoding:NSUTF8StringEncoding] withMode:MCSessionSendDataReliable error:&error];
     }
 }
 
@@ -48,27 +49,22 @@
 }
 
 
-#pragma mark - PLPartyTimeDelegate methods
+#pragma mark - MHMultipeerDelegate methods
 
-- (void)partyTime:(PLPartyTime *)partyTime peer:(MCPeerID *)peer changedState:(MCSessionState)state currentPeers:(NSArray *)currentPeers{
-    if (self.partyTime.connectedPeers.count<1) {
-        [Console writeLine: @"You are currently alone"];
-    }else if (self.partyTime.connectedPeers.count==1){
-        [Console writeLine: @"There is one other person around"];
-    }else{
-        [Console writeLine: [NSString stringWithFormat:@"There are %lu people around", (unsigned long)self.partyTime.connectedPeers.count]];
-    }
-}
 
-- (void)partyTime:(PLPartyTime *)partyTime didReceiveData:(NSData *)data fromPeer:(MCPeerID *)peerID{
+- (void)mcWrapper:(MHMultipeerWrapper *)mcWrapper didReceiveData:(NSData *)data fromPeer:(NSString *)peer{
     // Decode the incoming data to a UTF8 encoded string
     NSString *receivedMessage = [[NSString alloc] initWithData:data encoding: NSUTF8StringEncoding];
 
-    [Console writeLine: [NSString stringWithFormat:@"Party received message: %@", receivedMessage]];
+    [Console writeLine: [NSString stringWithFormat:@"Received message: %@", receivedMessage]];
 }
 
-- (void)partyTime:(PLPartyTime *)partyTime failedToJoinParty:(NSError *)error{
-    [Console writeLine: @"Failed to join party..."];
+- (void)mcWrapper:(MHMultipeerWrapper *)mcWrapper hasDisconnected:(NSString *)info peer:(NSString *)peer{
+    [Console writeLine: @"Peer has disconnected..."];
+}
+
+- (void)mcWrapper:(MHMultipeerWrapper *)mcWrapper failedToConnect:(NSError *)error{
+    [Console writeLine: @"Failed to connect..."];
 }
 
 
