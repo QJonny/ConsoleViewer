@@ -28,8 +28,8 @@ static id _obj = nil;
     _enterButton = enterButton;
     [logView setText:@""];
     [_textField setText:@""];
-    _textField.enabled = NO;
-    _enterButton.enabled = NO;
+    //_textField.enabled = NO;
+    //_enterButton.enabled = NO;
 }
 
 + (void)writeLine:(NSString*)msg {
@@ -39,13 +39,13 @@ static id _obj = nil;
 + (void)readLine:(SEL)onResponse withObject:(id)obj {
     _onResponse = onResponse;
     _obj = obj;
-    _textField.enabled = YES;
-    _enterButton.enabled = YES;
+    //_textField.enabled = YES;
+    //_enterButton.enabled = YES;
 }
 
 + (void)notifyText {
-    _textField.enabled = NO;
-    _enterButton.enabled = NO;
+    //_textField.enabled = NO;
+    //_enterButton.enabled = NO;
     NSString* data = [NSMutableString stringWithString: _textField.text];
     
     [_textField setText:@""];

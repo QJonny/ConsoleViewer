@@ -27,13 +27,13 @@
 
     [self.mcWrapper connectToAll];
     
-    //[Console writeLine:@"Type 1 for sending or anything else for listening"];
-    //[Console readLine:@selector(continueProc:) withObject:self];
+    [Console writeLine:@"Type Enter for sending a message"];
+    [Console readLine:@selector(continueProc:) withObject:self];
 }
 
 
 - (void)continueProc:(NSString*)data {
-    if ([data isEqualToString:@"1"]) {
+    if ([data isEqualToString:@""]) {
         NSError *error;
         [self.mcWrapper sendData:[@"Hello!!!" dataUsingEncoding:NSUTF8StringEncoding] withMode:MCSessionSendDataReliable error:&error];
     }
