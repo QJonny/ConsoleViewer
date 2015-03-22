@@ -9,6 +9,7 @@
 /* Begin PBXBuildFile section */
 		2B676F191AC1A32E002474D2 /* MHMultihop.m in Sources */ = {isa = PBXBuildFile; fileRef = 2B676F181AC1A32E002474D2 /* MHMultihop.m */; };
 		2B676F1D1AC1A360002474D2 /* MHBackgroundManager.m in Sources */ = {isa = PBXBuildFile; fileRef = 2B676F1C1AC1A360002474D2 /* MHBackgroundManager.m */; };
+		2B7B39461ABF0D8F005C77DD /* MHConnectionBuffer.m in Sources */ = {isa = PBXBuildFile; fileRef = 2B7B39451ABF0D8F005C77DD /* MHConnectionBuffer.m */; };
 		2B8092B81A9F69620059F89D /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = 2B8092B71A9F69620059F89D /* main.m */; };
 		2B8092BB1A9F69620059F89D /* AppDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = 2B8092BA1A9F69620059F89D /* AppDelegate.m */; };
 		2B8092BE1A9F69620059F89D /* consoleViewer.xcdatamodeld in Sources */ = {isa = PBXBuildFile; fileRef = 2B8092BC1A9F69620059F89D /* consoleViewer.xcdatamodeld */; };
@@ -38,6 +39,8 @@
 		2B676F181AC1A32E002474D2 /* MHMultihop.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = MHMultihop.m; path = "../../multihop-lib-ios/Multihop/MHMultihop.m"; sourceTree = "<group>"; };
 		2B676F1B1AC1A360002474D2 /* MHBackgroundManager.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = MHBackgroundManager.h; path = "../../multihop-lib-ios/Multihop/MHBackgroundManager.h"; sourceTree = "<group>"; };
 		2B676F1C1AC1A360002474D2 /* MHBackgroundManager.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = MHBackgroundManager.m; path = "../../multihop-lib-ios/Multihop/MHBackgroundManager.m"; sourceTree = "<group>"; };
+		2B7B39441ABF0D8F005C77DD /* MHConnectionBuffer.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = MHConnectionBuffer.h; path = "../../multihop-lib-ios/Multihop/MHConnectionBuffer.h"; sourceTree = "<group>"; };
+		2B7B39451ABF0D8F005C77DD /* MHConnectionBuffer.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = MHConnectionBuffer.m; path = "../../multihop-lib-ios/Multihop/MHConnectionBuffer.m"; sourceTree = "<group>"; };
 		2B8092B21A9F69620059F89D /* consoleViewer.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = consoleViewer.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		2B8092B61A9F69620059F89D /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		2B8092B71A9F69620059F89D /* main.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = main.m; sourceTree = "<group>"; };
@@ -202,6 +205,8 @@
 		2BBA88111AC465A40032E360 /* Connections */ = {
 			isa = PBXGroup;
 			children = (
+				2B7B39441ABF0D8F005C77DD /* MHConnectionBuffer.h */,
+				2B7B39451ABF0D8F005C77DD /* MHConnectionBuffer.m */,
 				2BBA88151AC466230032E360 /* MHConnectionsHandler.h */,
 				2BBA88161AC466230032E360 /* MHConnectionsHandler.m */,
 			);
@@ -317,6 +322,7 @@
 				2B8092BE1A9F69620059F89D /* consoleViewer.xcdatamodeld in Sources */,
 				2B8092BB1A9F69620059F89D /* AppDelegate.m in Sources */,
 				2B8092C11A9F69620059F89D /* ViewController.m in Sources */,
+				2B7B39461ABF0D8F005C77DD /* MHConnectionBuffer.m in Sources */,
 				2B8092B81A9F69620059F89D /* main.m in Sources */,
 				2B8093511AB895710059F89D /* MHPeer.m in Sources */,
 				2B676F1D1AC1A360002474D2 /* MHBackgroundManager.m in Sources */,
