@@ -13,6 +13,7 @@
 @property (weak, nonatomic) IBOutlet UITextField *inputView;
 @property (weak, nonatomic) IBOutlet UIButton *enterButton;
 
+@property (nonatomic) NSTimeInterval start;
 @end
 
 
@@ -35,7 +36,7 @@
 - (void)continueProc:(NSString*)data {
     if ([data isEqualToString:@""]) {
         NSError *error;
-        [self.mcWrapper sendData:[@"Hello!!!" dataUsingEncoding:NSUTF8StringEncoding] reliable:YES error:&error];
+        [self.mcWrapper sendData:[@"-1-" dataUsingEncoding:NSUTF8StringEncoding] reliable:YES error:&error];
     }
 }
 
@@ -45,18 +46,31 @@
 }
 
 - (IBAction)enterClicked:(id)sender {
-    [Console notifyText];
+    NSError *error;
+    NSDate* d = [NSDate date];
+    self.start = [d timeIntervalSince1970];
+    [self.mcWrapper sendData:[@"-1-" dataUsingEncoding:NSUTF8StringEncoding] reliable:YES error:&error];
+    //[Console notifyText];
 }
 
 
 #pragma mark - MHMultipeerDelegate methods
 
-
 - (void)mcWrapper:(MHMultipeerWrapper *)mcWrapper didReceiveData:(NSData *)data fromPeer:(NSString *)peer{
     // Decode the incoming data to a UTF8 encoded string
     NSString *receivedMessage = [[NSString alloc] initWithData:data encoding: NSUTF8StringEncoding];
 
-    [Console writeLine: [NSString stringWithFormat:@"Received message: %@", receivedMessage]];
+    if([receivedMessage isEqualToString:@"-1-"]) {
+        NSError *error;
+        [self.mcWrapper sendData:[@"-2-" dataUsingEncoding:NSUTF8StringEncoding] reliable:YES error:&error];
+    }
+    else if([receivedMessage isEqualToString:@"-2-"])
+    {
+        NSDate* d = [NSDate date];
+        NSTimeInterval end = [d timeIntervalSince1970];
+        NSTimeInterval timeInterval = end - self.start;
+        [Console writeLine: [NSString stringWithFormat:@"Received reply in %.3f seconds", timeInterval]];
+    }
 }
 
 - (void)mcWrapper:(MHMultipeerWrapper *)mcWrapper hasConnected:(NSString *)info peer:(NSString *)peer
@@ -65,7 +79,7 @@
 }
 
 - (void)mcWrapper:(MHMultipeerWrapper *)mcWrapper hasDisconnected:(NSString *)info peer:(NSString *)peer{
-    [Console writeLine: @"Peer has disconnected..."];
+    [Console writeLine: @"Peer has disconnected"];
 }
 
 - (void)mcWrapper:(MHMultipeerWrapper *)mcWrapper failedToConnect:(NSError *)error{

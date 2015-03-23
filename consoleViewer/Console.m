@@ -34,6 +34,12 @@ static id _obj = nil;
 
 + (void)writeLine:(NSString*)msg {
     [_logView setText:[NSString stringWithFormat:@"%@%@\n", [_logView text], msg]];
+    
+    if(_logView.text.length > 0)
+    {
+        NSRange range = NSMakeRange(_logView.text.length - 1, 1);
+        [_logView scrollRangeToVisible:range];
+    }
 }
 
 + (void)readLine:(SEL)onResponse withObject:(id)obj {
