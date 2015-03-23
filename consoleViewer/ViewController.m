@@ -23,7 +23,7 @@
     [Console init:self.logView withTextField:self.inputView withEnterButton:self.enterButton];
     self.mcWrapper = [[MHMultipeerWrapper alloc] initWithServiceType:@"test"];
     self.mcWrapper.delegate = self;
-    [Console writeLine: [NSString stringWithFormat:@"You are currently alone. Your id is %@", [self.mcWrapper getPeer]]];
+    [Console writeLine: @"You are currently alone."];
 
     [self.mcWrapper connectToAll];
     
@@ -35,7 +35,7 @@
 - (void)continueProc:(NSString*)data {
     if ([data isEqualToString:@""]) {
         NSError *error;
-        [self.mcWrapper sendData:[@"Hello!!!" dataUsingEncoding:NSUTF8StringEncoding] withMode:MCSessionSendDataReliable error:&error];
+        [self.mcWrapper sendData:[@"Hello!!!" dataUsingEncoding:NSUTF8StringEncoding] reliable:YES error:&error];
     }
 }
 
@@ -57,6 +57,11 @@
     NSString *receivedMessage = [[NSString alloc] initWithData:data encoding: NSUTF8StringEncoding];
 
     [Console writeLine: [NSString stringWithFormat:@"Received message: %@", receivedMessage]];
+}
+
+- (void)mcWrapper:(MHMultipeerWrapper *)mcWrapper hasConnected:(NSString *)info peer:(NSString *)peer
+      displayName:(NSString *)displayName{
+    [Console writeLine: [NSString stringWithFormat:@"Peer has connected: %@", displayName]];
 }
 
 - (void)mcWrapper:(MHMultipeerWrapper *)mcWrapper hasDisconnected:(NSString *)info peer:(NSString *)peer{
