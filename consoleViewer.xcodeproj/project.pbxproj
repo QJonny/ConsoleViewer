@@ -7,6 +7,8 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		2B676F191AC1A32E002474D2 /* MHMultihop.m in Sources */ = {isa = PBXBuildFile; fileRef = 2B676F181AC1A32E002474D2 /* MHMultihop.m */; };
+		2B676F1D1AC1A360002474D2 /* MHBackgroundManager.m in Sources */ = {isa = PBXBuildFile; fileRef = 2B676F1C1AC1A360002474D2 /* MHBackgroundManager.m */; };
 		2B8092B81A9F69620059F89D /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = 2B8092B71A9F69620059F89D /* main.m */; };
 		2B8092BB1A9F69620059F89D /* AppDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = 2B8092BA1A9F69620059F89D /* AppDelegate.m */; };
 		2B8092BE1A9F69620059F89D /* consoleViewer.xcdatamodeld in Sources */ = {isa = PBXBuildFile; fileRef = 2B8092BC1A9F69620059F89D /* consoleViewer.xcdatamodeld */; };
@@ -31,6 +33,10 @@
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
+		2B676F171AC1A30C002474D2 /* MHMultihop.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = MHMultihop.h; path = "../../multihop-lib-ios/Multihop/MHMultihop.h"; sourceTree = "<group>"; };
+		2B676F181AC1A32E002474D2 /* MHMultihop.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = MHMultihop.m; path = "../../multihop-lib-ios/Multihop/MHMultihop.m"; sourceTree = "<group>"; };
+		2B676F1B1AC1A360002474D2 /* MHBackgroundManager.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = MHBackgroundManager.h; path = "../../multihop-lib-ios/Multihop/MHBackgroundManager.h"; sourceTree = "<group>"; };
+		2B676F1C1AC1A360002474D2 /* MHBackgroundManager.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = MHBackgroundManager.m; path = "../../multihop-lib-ios/Multihop/MHBackgroundManager.m"; sourceTree = "<group>"; };
 		2B8092B21A9F69620059F89D /* consoleViewer.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = consoleViewer.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		2B8092B61A9F69620059F89D /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		2B8092B71A9F69620059F89D /* main.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = main.m; sourceTree = "<group>"; };
@@ -71,6 +77,15 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		2B676F1A1AC1A334002474D2 /* Background */ = {
+			isa = PBXGroup;
+			children = (
+				2B676F1B1AC1A360002474D2 /* MHBackgroundManager.h */,
+				2B676F1C1AC1A360002474D2 /* MHBackgroundManager.m */,
+			);
+			name = Background;
+			sourceTree = "<group>";
+		};
 		2B8092A91A9F69620059F89D = {
 			isa = PBXGroup;
 			children = (
@@ -137,6 +152,7 @@
 		2B8093491AB894780059F89D /* Multihop */ = {
 			isa = PBXGroup;
 			children = (
+				2B676F1A1AC1A334002474D2 /* Background */,
 				2B80934C1AB894B90059F89D /* Communication */,
 				2B80934B1AB894B10059F89D /* Routing */,
 				2B80934A1AB894AA0059F89D /* Interface */,
@@ -147,6 +163,8 @@
 		2B80934A1AB894AA0059F89D /* Interface */ = {
 			isa = PBXGroup;
 			children = (
+				2B676F181AC1A32E002474D2 /* MHMultihop.m */,
+				2B676F171AC1A30C002474D2 /* MHMultihop.h */,
 			);
 			name = Interface;
 			sourceTree = "<group>";
@@ -235,6 +253,11 @@
 					2B8092B11A9F69620059F89D = {
 						CreatedOnToolsVersion = 6.3;
 						DevelopmentTeam = 8HKT3VB273;
+						SystemCapabilities = {
+							com.apple.BackgroundModes = {
+								enabled = 1;
+							};
+						};
 					};
 					2B8092CD1A9F69620059F89D = {
 						CreatedOnToolsVersion = 6.3;
@@ -291,7 +314,9 @@
 				2B8092C11A9F69620059F89D /* ViewController.m in Sources */,
 				2B8092B81A9F69620059F89D /* main.m in Sources */,
 				2B8093511AB895710059F89D /* MHPeer.m in Sources */,
+				2B676F1D1AC1A360002474D2 /* MHBackgroundManager.m in Sources */,
 				2B8093541AB895B20059F89D /* MHMultipeerWrapper.m in Sources */,
+				2B676F191AC1A32E002474D2 /* MHMultihop.m in Sources */,
 				2B8092DF1A9F70340059F89D /* Console.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;

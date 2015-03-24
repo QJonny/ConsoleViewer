@@ -7,11 +7,12 @@
 //
 
 #import <UIKit/UIKit.h>
+#import "AppDelegate.h"
 #import "Console.h"
-#import "MHMultipeerWrapper.h"
+#import "MHMultihop.h"
 
 @interface ViewController : UIViewController
 
-@property MHMultipeerWrapper* mcWrapper;
+@property MHMultihop* mhHandler;
 @end
 
