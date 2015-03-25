@@ -34,27 +34,17 @@
     
     if(self.mhHandler != nil)
     {
-        [self.mhHandler applicationWillResignActive:application];
+        [self.mhHandler applicationWillResignActive];
     }
 }
 
 - (void)applicationDidEnterBackground:(UIApplication *)application {
     // Use this method to release shared resources, save user data, invalidate timers, and store enough application state information to restore your application to its current state in case it is terminated later.
     // If your application supports background execution, this method is called instead of applicationWillTerminate: when the user quits.
-    
-    if(self.mhHandler != nil)
-    {
-        [self.mhHandler applicationDidEnterBackground:application];
-    }
 }
 
 - (void)applicationWillEnterForeground:(UIApplication *)application {
     // Called as part of the transition from the background to the inactive state; here you can undo many of the changes made on entering the background.
-    
-    if(self.mhHandler != nil)
-    {
-        [self.mhHandler applicationWillEnterForeground:application];
-    }
 }
 
 - (void)applicationDidBecomeActive:(UIApplication *)application {
@@ -62,7 +52,7 @@
     
     if(self.mhHandler != nil)
     {
-        [self.mhHandler applicationDidBecomeActive:application];
+        [self.mhHandler applicationDidBecomeActive];
     }
 }
 
@@ -73,7 +63,7 @@
     
     if(self.mhHandler != nil)
     {
-        [self.mhHandler applicationWillTerminate:application];
+        [self.mhHandler applicationWillTerminate];
     }
     
     [self saveContext];
