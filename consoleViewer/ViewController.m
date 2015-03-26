@@ -46,11 +46,11 @@
     {
         NSDate* d = [NSDate date];
         self.start = [d timeIntervalSince1970];
-        [self.mhHandler sendData:[@"-1-" dataUsingEncoding:NSUTF8StringEncoding] reliable:YES error:&error];
+        [self.mhHandler sendData:[@"-1-" dataUsingEncoding:NSUTF8StringEncoding] error:&error];
     }
     else
     {
-        [self.mhHandler sendData:[data dataUsingEncoding:NSUTF8StringEncoding] reliable:YES error:&error];
+        [self.mhHandler sendData:[data dataUsingEncoding:NSUTF8StringEncoding] error:&error];
     }
 }
 
@@ -75,7 +75,7 @@
 
     if([receivedMessage isEqualToString:@"-1-"]) {
         NSError *error;
-        [self.mhHandler sendData:[@"-2-" dataUsingEncoding:NSUTF8StringEncoding] reliable:YES error:&error];
+        [self.mhHandler sendData:[@"-2-" dataUsingEncoding:NSUTF8StringEncoding] error:&error];
     }
     else if([receivedMessage isEqualToString:@"-2-"])
     {
