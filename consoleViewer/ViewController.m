@@ -13,6 +13,10 @@
 @property (weak, nonatomic) IBOutlet UITextField *inputView;
 @property (weak, nonatomic) IBOutlet UIButton *enterButton;
 
+@property (copy) void (^send)(void);
+
+@property (nonatomic)NSUInteger count;
+
 @property (nonatomic) NSTimeInterval start;
 @end
 
@@ -29,6 +33,30 @@
 
     [appDelegate setMultihopHandler:self.mhHandler];
     
+    NSString *str = @"";
+    self.count = 0;
+    
+    for (int i = 0; i < 1000; i++)
+    {
+        str = [NSString stringWithFormat:@"%@%@", str, @"0000000000"];
+    }
+
+    
+    [Console writeLine:[NSString stringWithFormat:@"Length: %d bytes", str.length]];
+    
+    ViewController * __weak weakSelf = self;
+    
+    
+    self.send = ^{
+        if (weakSelf)
+        {
+            NSError *error;
+            [weakSelf.mhHandler sendData:[str dataUsingEncoding:NSUTF8StringEncoding] error:&error];
+            
+            dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(10 * NSEC_PER_MSEC)), dispatch_get_main_queue(), weakSelf.send);
+        }
+    };
+    
     
     
     [Console writeLine: @"You are currently alone."];
@@ -41,7 +69,7 @@
 
 
 - (void)continueProc:(NSString*)data {
-    NSError *error;
+    /*NSError *error;
     if ([data isEqualToString:@""])
     {
         NSDate* d = [NSDate date];
@@ -51,7 +79,9 @@
     else
     {
         [self.mhHandler sendData:[data dataUsingEncoding:NSUTF8StringEncoding] error:&error];
-    }
+    }*/
+    dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(1000 * NSEC_PER_MSEC)), dispatch_get_main_queue(), self.send);
+    
 }
 
 - (void)didReceiveMemoryWarning {
@@ -86,7 +116,12 @@
     }
     else
     {
-        [Console writeLine: [NSString stringWithFormat:@"Msg: %@", receivedMessage]];
+        self.count++;
+        
+        if(self.count % 100 == 0)
+        {
+            [Console writeLine: [NSString stringWithFormat:@"msg n %d", self.count]];//[NSString stringWithFormat:@"Msg: %@", receivedMessage]];
+        }
     }
     
 }
