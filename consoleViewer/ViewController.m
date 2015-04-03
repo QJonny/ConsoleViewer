@@ -68,8 +68,6 @@
     
     
     [Console writeLine: @"You are currently alone."];
-
-    [self.mhHandler discover];
     
     [Console writeLine:@"Type Enter for sending a message"];
     [Console readLine:@selector(continueProc:) withObject:self];
@@ -77,19 +75,29 @@
 
 
 - (void)continueProc:(NSString*)data {
-    /*NSError *error;
+    NSError *error;
+    NSString *str;
     if ([data isEqualToString:@""])
     {
         NSDate* d = [NSDate date];
         self.start = [d timeIntervalSince1970];
-        [self.mhHandler sendData:[@"-1-" dataUsingEncoding:NSUTF8StringEncoding] error:&error];
+        str = @"-1-";
+        
+        MHPacket *packet = [[MHPacket alloc] initWithSource:[self.mhHandler getOwnPeer]
+                                           withDestinations:self.peers
+                                                   withData:[str dataUsingEncoding:NSUTF8StringEncoding]];
+        
+        [self.mhHandler sendPacket:packet error:&error];
     }
     else
     {
-        [self.mhHandler sendData:[data dataUsingEncoding:NSUTF8StringEncoding] error:&error];
-    }*/
-    dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(1000 * NSEC_PER_MSEC)), dispatch_get_main_queue(), self.send);
+        [self.mhHandler discover];
+        //str = data;
+    }
+
     
+    /*dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(1000 * NSEC_PER_MSEC)), dispatch_get_main_queue(), self.send);
+    */
 }
 
 - (void)didReceiveMemoryWarning {
