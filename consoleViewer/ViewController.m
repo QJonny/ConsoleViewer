@@ -17,6 +17,8 @@
 
 @property (nonatomic)NSUInteger count;
 
+@property (nonatomic)NSMutableArray *peers;
+
 @property (nonatomic) NSTimeInterval start;
 @end
 
@@ -28,6 +30,8 @@
     [Console init:self.logView withTextField:self.inputView withEnterButton:self.enterButton];
     self.mhHandler = [[MHMultihop alloc] initWithServiceType:@"test"];
     self.mhHandler.delegate = self;
+    
+    self.peers = [[NSMutableArray alloc] init];
     
     AppDelegate *appDelegate = (AppDelegate*)[[UIApplication sharedApplication] delegate];
 
@@ -46,12 +50,15 @@
     
     ViewController * __weak weakSelf = self;
     
+    MHPacket *packet = [[MHPacket alloc] initWithSource:[self.mhHandler getOwnPeer]
+                                       withDestinations:self.peers
+                                               withData:[str dataUsingEncoding:NSUTF8StringEncoding]];
     
     self.send = ^{
         if (weakSelf)
         {
             NSError *error;
-            [weakSelf.mhHandler sendData:[str dataUsingEncoding:NSUTF8StringEncoding] error:&error];
+            [weakSelf.mhHandler sendPacket:packet error:&error];
             
             dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(10 * NSEC_PER_MSEC)), dispatch_get_main_queue(), weakSelf.send);
         }
@@ -61,7 +68,7 @@
     
     [Console writeLine: @"You are currently alone."];
 
-    [self.mhHandler connectToAll];
+    [self.mhHandler discover];
     
     [Console writeLine:@"Type Enter for sending a message"];
     [Console readLine:@selector(continueProc:) withObject:self];
@@ -99,13 +106,17 @@
 
 #pragma mark - MHMultipeerDelegate methods
 
-- (void)mhHandler:(MHMultihop *)mhHandler didReceiveData:(NSData *)data fromPeer:(NSString *)peer{
+- (void)mhHandler:(MHMultihop *)mhHandler didReceivePacket:(MHPacket *)packet{
     // Decode the incoming data to a UTF8 encoded string
-    NSString *receivedMessage = [[NSString alloc] initWithData:data encoding: NSUTF8StringEncoding];
+    NSString *receivedMessage = [[NSString alloc] initWithData:packet.data encoding: NSUTF8StringEncoding];
 
     if([receivedMessage isEqualToString:@"-1-"]) {
         NSError *error;
-        [self.mhHandler sendData:[@"-2-" dataUsingEncoding:NSUTF8StringEncoding] error:&error];
+        MHPacket *packet = [[MHPacket alloc] initWithSource:[self.mhHandler getOwnPeer]
+                                           withDestinations:self.peers
+                                                   withData:[@"-2-" dataUsingEncoding:NSUTF8StringEncoding]];
+        
+        [self.mhHandler sendPacket:packet error:&error];
     }
     else if([receivedMessage isEqualToString:@"-2-"])
     {
@@ -126,12 +137,14 @@
     
 }
 
-- (void)mhHandler:(MHMultihop *)mhHandler hasConnected:(NSString *)info peer:(NSString *)peer
+- (void)mhHandler:(MHMultihop *)mhHandler isDiscovered:(NSString *)info peer:(NSString *)peer
       displayName:(NSString *)displayName{
+    [self.peers addObject:peer];
     [Console writeLine: [NSString stringWithFormat:@"Peer has connected: %@", displayName]];
 }
 
 - (void)mhHandler:(MHMultihop *)mhHandler hasDisconnected:(NSString *)info peer:(NSString *)peer{
+    [self.peers removeObject:peer];
     [Console writeLine: @"Peer has disconnected"];
 }
 
