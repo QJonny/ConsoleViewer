@@ -50,15 +50,16 @@
     
     ViewController * __weak weakSelf = self;
     
-    MHPacket *packet = [[MHPacket alloc] initWithSource:[self.mhHandler getOwnPeer]
-                                       withDestinations:self.peers
-                                               withData:[str dataUsingEncoding:NSUTF8StringEncoding]];
     
     self.send = ^{
         if (weakSelf)
         {
+            MHPacket *packet = [[MHPacket alloc] initWithSource:[weakSelf.mhHandler getOwnPeer]
+                                               withDestinations:weakSelf.peers
+                                                       withData:[str dataUsingEncoding:NSUTF8StringEncoding]];
             NSError *error;
             [weakSelf.mhHandler sendPacket:packet error:&error];
+
             
             dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(10 * NSEC_PER_MSEC)), dispatch_get_main_queue(), weakSelf.send);
         }

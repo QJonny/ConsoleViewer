@@ -24,6 +24,7 @@
 		2BBD18931ACEC597003BBB64 /* MHPacket.m in Sources */ = {isa = PBXBuildFile; fileRef = 2BBD18901ACEC597003BBB64 /* MHPacket.m */; };
 		2BBD18941ACEC597003BBB64 /* MHRouter.m in Sources */ = {isa = PBXBuildFile; fileRef = 2BBD18921ACEC597003BBB64 /* MHRouter.m */; };
 		2BBD18971ACEC5B6003BBB64 /* MHRoutingProtocol.m in Sources */ = {isa = PBXBuildFile; fileRef = 2BBD18961ACEC5B6003BBB64 /* MHRoutingProtocol.m */; };
+		2BF4C58D1ACF2684005B8481 /* MHFloodingProtocol.m in Sources */ = {isa = PBXBuildFile; fileRef = 2BF4C58C1ACF2684005B8481 /* MHFloodingProtocol.m */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -69,6 +70,8 @@
 		2BBD18921ACEC597003BBB64 /* MHRouter.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = MHRouter.m; path = "../../multihop-lib-ios/Multihop/MHRouter.m"; sourceTree = "<group>"; };
 		2BBD18951ACEC5B6003BBB64 /* MHRoutingProtocol.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = MHRoutingProtocol.h; path = "../../multihop-lib-ios/Multihop/MHRoutingProtocol.h"; sourceTree = "<group>"; };
 		2BBD18961ACEC5B6003BBB64 /* MHRoutingProtocol.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = MHRoutingProtocol.m; path = "../../multihop-lib-ios/Multihop/MHRoutingProtocol.m"; sourceTree = "<group>"; };
+		2BF4C58B1ACF2684005B8481 /* MHFloodingProtocol.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = MHFloodingProtocol.h; path = "../../multihop-lib-ios/Multihop/MHFloodingProtocol.h"; sourceTree = "<group>"; };
+		2BF4C58C1ACF2684005B8481 /* MHFloodingProtocol.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = MHFloodingProtocol.m; path = "../../multihop-lib-ios/Multihop/MHFloodingProtocol.m"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -228,6 +231,8 @@
 		2BBD188D1ACEC564003BBB64 /* Flooding */ = {
 			isa = PBXGroup;
 			children = (
+				2BF4C58B1ACF2684005B8481 /* MHFloodingProtocol.h */,
+				2BF4C58C1ACF2684005B8481 /* MHFloodingProtocol.m */,
 			);
 			name = Flooding;
 			sourceTree = "<group>";
@@ -349,6 +354,7 @@
 				2B8092BB1A9F69620059F89D /* AppDelegate.m in Sources */,
 				2B8092C11A9F69620059F89D /* ViewController.m in Sources */,
 				2B7B39461ABF0D8F005C77DD /* MHConnectionBuffer.m in Sources */,
+				2BF4C58D1ACF2684005B8481 /* MHFloodingProtocol.m in Sources */,
 				2B8092B81A9F69620059F89D /* main.m in Sources */,
 				2B8093511AB895710059F89D /* MHPeer.m in Sources */,
 				2B8093541AB895B20059F89D /* MHMultipeerWrapper.m in Sources */,
