@@ -26,7 +26,6 @@
 		2BBD18971ACEC5B6003BBB64 /* MHRoutingProtocol.m in Sources */ = {isa = PBXBuildFile; fileRef = 2BBD18961ACEC5B6003BBB64 /* MHRoutingProtocol.m */; };
 		2BF4C58D1ACF2684005B8481 /* MHFloodingProtocol.m in Sources */ = {isa = PBXBuildFile; fileRef = 2BF4C58C1ACF2684005B8481 /* MHFloodingProtocol.m */; };
 		2BF4C5931ACF5D08005B8481 /* MH6ShotsProtocol.m in Sources */ = {isa = PBXBuildFile; fileRef = 2BF4C5921ACF5D08005B8481 /* MH6ShotsProtocol.m */; };
-		2BF4C59E1ACF6543005B8481 /* MH6ShotsRoutingTable.m in Sources */ = {isa = PBXBuildFile; fileRef = 2BF4C59B1ACF6543005B8481 /* MH6ShotsRoutingTable.m */; };
 		2BF4C59F1ACF6543005B8481 /* MH6ShotsSchedulesManager.m in Sources */ = {isa = PBXBuildFile; fileRef = 2BF4C59D1ACF6543005B8481 /* MH6ShotsSchedulesManager.m */; };
 /* End PBXBuildFile section */
 
@@ -77,8 +76,6 @@
 		2BF4C58C1ACF2684005B8481 /* MHFloodingProtocol.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = MHFloodingProtocol.m; path = "../../multihop-lib-ios/Multihop/MHFloodingProtocol.m"; sourceTree = "<group>"; };
 		2BF4C5911ACF5D08005B8481 /* MH6ShotsProtocol.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = MH6ShotsProtocol.h; path = "../../multihop-lib-ios/Multihop/MH6ShotsProtocol.h"; sourceTree = "<group>"; };
 		2BF4C5921ACF5D08005B8481 /* MH6ShotsProtocol.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = MH6ShotsProtocol.m; path = "../../multihop-lib-ios/Multihop/MH6ShotsProtocol.m"; sourceTree = "<group>"; };
-		2BF4C59A1ACF6543005B8481 /* MH6ShotsRoutingTable.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = MH6ShotsRoutingTable.h; path = "../../multihop-lib-ios/Multihop/MH6ShotsRoutingTable.h"; sourceTree = "<group>"; };
-		2BF4C59B1ACF6543005B8481 /* MH6ShotsRoutingTable.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = MH6ShotsRoutingTable.m; path = "../../multihop-lib-ios/Multihop/MH6ShotsRoutingTable.m"; sourceTree = "<group>"; };
 		2BF4C59C1ACF6543005B8481 /* MH6ShotsSchedulesManager.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = MH6ShotsSchedulesManager.h; path = "../../multihop-lib-ios/Multihop/MH6ShotsSchedulesManager.h"; sourceTree = "<group>"; };
 		2BF4C59D1ACF6543005B8481 /* MH6ShotsSchedulesManager.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = MH6ShotsSchedulesManager.m; path = "../../multihop-lib-ios/Multihop/MH6ShotsSchedulesManager.m"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
@@ -249,8 +246,6 @@
 		2BBD188E1ACEC56B003BBB64 /* 6Shots */ = {
 			isa = PBXGroup;
 			children = (
-				2BF4C59A1ACF6543005B8481 /* MH6ShotsRoutingTable.h */,
-				2BF4C59B1ACF6543005B8481 /* MH6ShotsRoutingTable.m */,
 				2BF4C59C1ACF6543005B8481 /* MH6ShotsSchedulesManager.h */,
 				2BF4C59D1ACF6543005B8481 /* MH6ShotsSchedulesManager.m */,
 				2BF4C5911ACF5D08005B8481 /* MH6ShotsProtocol.h */,
@@ -379,7 +374,6 @@
 				2BBD18971ACEC5B6003BBB64 /* MHRoutingProtocol.m in Sources */,
 				2B676F191AC1A32E002474D2 /* MHMultihop.m in Sources */,
 				2BF4C5931ACF5D08005B8481 /* MH6ShotsProtocol.m in Sources */,
-				2BF4C59E1ACF6543005B8481 /* MH6ShotsRoutingTable.m in Sources */,
 				2B8092DF1A9F70340059F89D /* Console.m in Sources */,
 				2BBD18941ACEC597003BBB64 /* MHRouter.m in Sources */,
 			);
