@@ -8,7 +8,7 @@
 
 #import <UIKit/UIKit.h>
 #import <CoreData/CoreData.h>
-#import "MHMultihop.h"
+#import "MHUnicastSocket.h"
 
 @interface AppDelegate : UIResponder <UIApplicationDelegate>
 
@@ -24,7 +24,7 @@
 - (void)saveContext;
 - (NSURL *)applicationDocumentsDirectory;
 
-- (void)setMultihopHandler:(MHMultihop *)mhHandler;
+- (void)setSocket:(MHUnicastSocket *)socket;
 
 @end
 

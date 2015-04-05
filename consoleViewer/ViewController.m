@@ -8,7 +8,7 @@
 
 #import "ViewController.h"
 
-@interface ViewController () <MHMultihopDelegate>
+@interface ViewController () <MHUnicastSocketDelegate>
 @property (weak, nonatomic) IBOutlet UITextView *logView;
 @property (weak, nonatomic) IBOutlet UITextField *inputView;
 @property (weak, nonatomic) IBOutlet UIButton *enterButton;
@@ -28,14 +28,14 @@
 - (void)viewDidLoad {
     [super viewDidLoad];
     [Console init:self.logView withTextField:self.inputView withEnterButton:self.enterButton];
-    self.mhHandler = [[MHMultihop alloc] initWithServiceType:@"test"];
-    self.mhHandler.delegate = self;
+    self.socket = [[MHUnicastSocket alloc] initWithServiceType:@"test"];
+    self.socket.delegate = self;
     
     self.peers = [[NSMutableArray alloc] init];
     
     AppDelegate *appDelegate = (AppDelegate*)[[UIApplication sharedApplication] delegate];
 
-    [appDelegate setMultihopHandler:self.mhHandler];
+    [appDelegate setSocket:self.socket];
     
     NSString *str = @"";
     self.count = 0;
@@ -46,7 +46,7 @@
     }
 
     
-    [Console writeLine:[NSString stringWithFormat:@"Length: %d bytes", str.length]];
+    [Console writeLine:[NSString stringWithFormat:@"Length: %lu bytes", str.length]];
     
     ViewController * __weak weakSelf = self;
     
@@ -54,11 +54,11 @@
     self.send = ^{
         if (weakSelf)
         {
-            MHPacket *packet = [[MHPacket alloc] initWithSource:[weakSelf.mhHandler getOwnPeer]
+            MHPacket *packet = [[MHPacket alloc] initWithSource:[weakSelf.socket getOwnPeer]
                                                withDestinations:weakSelf.peers
                                                        withData:[str dataUsingEncoding:NSUTF8StringEncoding]];
             NSError *error;
-            [weakSelf.mhHandler sendPacket:packet error:&error];
+            [weakSelf.socket sendPacket:packet error:&error];
 
             
             dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(10 * NSEC_PER_MSEC)), dispatch_get_main_queue(), weakSelf.send);
@@ -83,15 +83,15 @@
         self.start = [d timeIntervalSince1970];
         str = @"-1-";
         
-        MHPacket *packet = [[MHPacket alloc] initWithSource:[self.mhHandler getOwnPeer]
+        MHPacket *packet = [[MHPacket alloc] initWithSource:[self.socket getOwnPeer]
                                            withDestinations:self.peers
                                                    withData:[str dataUsingEncoding:NSUTF8StringEncoding]];
         
-        [self.mhHandler sendPacket:packet error:&error];
+        [self.socket sendPacket:packet error:&error];
     }
     else
     {
-        [self.mhHandler discover];
+        [self.socket discover];
         //str = data;
     }
 
@@ -113,19 +113,21 @@
 }
 
 
-#pragma mark - MHMultipeerDelegate methods
+#pragma mark - MHUnicastSocketDelegate methods
 
-- (void)mhHandler:(MHMultihop *)mhHandler didReceivePacket:(MHPacket *)packet{
+- (void)mhUnicastSocket:(MHUnicastSocket *)mhUnicastSocket
+       didReceivePacket:(MHPacket *)packet
+{
     // Decode the incoming data to a UTF8 encoded string
     NSString *receivedMessage = [[NSString alloc] initWithData:packet.data encoding: NSUTF8StringEncoding];
 
     if([receivedMessage isEqualToString:@"-1-"]) {
         NSError *error;
-        MHPacket *packet = [[MHPacket alloc] initWithSource:[self.mhHandler getOwnPeer]
+        MHPacket *packet = [[MHPacket alloc] initWithSource:[self.socket getOwnPeer]
                                            withDestinations:self.peers
                                                    withData:[@"-2-" dataUsingEncoding:NSUTF8StringEncoding]];
         
-        [self.mhHandler sendPacket:packet error:&error];
+        [self.socket sendPacket:packet error:&error];
     }
     else if([receivedMessage isEqualToString:@"-2-"])
     {
@@ -140,24 +142,27 @@
         
         if(self.count % 100 == 0)
         {
-            [Console writeLine: [NSString stringWithFormat:@"msg n %d", self.count]];//[NSString stringWithFormat:@"Msg: %@", receivedMessage]];
+            [Console writeLine: [NSString stringWithFormat:@"msg n %lu", self.count]];//[NSString stringWithFormat:@"Msg: %@", receivedMessage]];
         }
     }
     
 }
 
-- (void)mhHandler:(MHMultihop *)mhHandler isDiscovered:(NSString *)info peer:(NSString *)peer
-      displayName:(NSString *)displayName{
+- (void)mhUnicastSocket:(MHUnicastSocket *)mhUnicastSocket
+           isDiscovered:(NSString *)info peer:(NSString *)peer
+            displayName:(NSString *)displayName{
     [self.peers addObject:peer];
     [Console writeLine: [NSString stringWithFormat:@"Peer has connected: %@", displayName]];
 }
 
-- (void)mhHandler:(MHMultihop *)mhHandler hasDisconnected:(NSString *)info peer:(NSString *)peer{
+- (void)mhUnicastSocket:(MHUnicastSocket *)mhUnicastSocket
+        hasDisconnected:(NSString *)info peer:(NSString *)peer{
     [self.peers removeObject:peer];
     [Console writeLine: @"Peer has disconnected"];
 }
 
-- (void)mhHandler:(MHMultihop *)mhHandler failedToConnect:(NSError *)error{
+- (void)mhUnicastSocket:(MHUnicastSocket *)mhUnicastSocket
+        failedToConnect:(NSError *)error{
     [Console writeLine: @"Failed to connect..."];
 }
 

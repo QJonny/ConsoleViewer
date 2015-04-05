@@ -9,10 +9,10 @@
 #import <UIKit/UIKit.h>
 #import "AppDelegate.h"
 #import "Console.h"
-#import "MHMultihop.h"
+#import "MHUnicastSocket.h"
 
 @interface ViewController : UIViewController
 
-@property MHMultihop* mhHandler;
+@property MHUnicastSocket* socket;
 @end
 
