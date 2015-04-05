@@ -18,7 +18,7 @@
 
 
 
-- (void)setSocket:(MHUnicastSocket *)socket
+- (void)setMHSocket:(MHUnicastSocket *)socket
 {
     self.socket = socket;
 }

@@ -24,7 +24,7 @@
 - (void)saveContext;
 - (NSURL *)applicationDocumentsDirectory;
 
-- (void)setSocket:(MHUnicastSocket *)socket;
+- (void)setMHSocket:(MHUnicastSocket *)socket;
 
 @end
 

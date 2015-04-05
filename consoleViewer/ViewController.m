@@ -35,7 +35,7 @@
     
     AppDelegate *appDelegate = (AppDelegate*)[[UIApplication sharedApplication] delegate];
 
-    [appDelegate setSocket:self.socket];
+    [appDelegate setMHSocket:self.socket];
     
     NSString *str = @"";
     self.count = 0;
