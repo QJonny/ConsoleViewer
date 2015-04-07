@@ -10,7 +10,8 @@
 
 @interface AppDelegate ()
 
-@property (nonatomic, strong) MHUnicastSocket *socket;
+@property (nonatomic, strong) MHUnicastSocket *uSocket;
+@property (nonatomic, strong) MHMulticastSocket *mSocket;
 
 @end
 
@@ -18,10 +19,16 @@
 
 
 
-- (void)setMHSocket:(MHUnicastSocket *)socket
+- (void)setUniSocket:(MHUnicastSocket *)socket
 {
-    self.socket = socket;
+    self.uSocket = socket;
 }
+
+- (void)setMultiSocket:(MHMulticastSocket *)socket
+{
+    self.mSocket = socket;
+}
+
 
 - (BOOL)application:(UIApplication *)application didFinishLaunchingWithOptions:(NSDictionary *)launchOptions {
     // Override point for customization after application launch.
@@ -32,9 +39,14 @@
     // Sent when the application is about to move from active to inactive state. This can occur for certain types of temporary interruptions (such as an incoming phone call or SMS message) or when the user quits the application and it begins the transition to the background state.
     // Use this method to pause ongoing tasks, disable timers, and throttle down OpenGL ES frame rates. Games should use this method to pause the game.
     
-    if(self.socket != nil)
+    if(self.uSocket != nil)
     {
-        [self.socket applicationWillResignActive];
+        [self.uSocket applicationWillResignActive];
+    }
+    
+    if(self.mSocket != nil)
+    {
+        [self.mSocket applicationWillResignActive];
     }
 }
 
@@ -50,9 +62,14 @@
 - (void)applicationDidBecomeActive:(UIApplication *)application {
     // Restart any tasks that were paused (or not yet started) while the application was inactive. If the application was previously in the background, optionally refresh the user interface.
     
-    if(self.socket != nil)
+    if(self.uSocket != nil)
     {
-        [self.socket applicationDidBecomeActive];
+        [self.uSocket applicationDidBecomeActive];
+    }
+    
+    if(self.mSocket != nil)
+    {
+        [self.mSocket applicationDidBecomeActive];
     }
 }
 
@@ -61,9 +78,14 @@
     // Saves changes in the application's managed object context before the application terminates.
     
     
-    if(self.socket != nil)
+    if(self.uSocket != nil)
     {
-        [self.socket applicationWillTerminate];
+        [self.uSocket applicationWillTerminate];
+    }
+    
+    if(self.mSocket != nil)
+    {
+        [self.mSocket applicationWillTerminate];
     }
     
     [self saveContext];

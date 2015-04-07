@@ -8,7 +8,7 @@
 
 #import "ViewController.h"
 
-@interface ViewController () <MHUnicastSocketDelegate>
+@interface ViewController () <MHUnicastSocketDelegate, MHMulticastSocketDelegate>
 @property (weak, nonatomic) IBOutlet UITextView *logView;
 @property (weak, nonatomic) IBOutlet UITextField *inputView;
 @property (weak, nonatomic) IBOutlet UIButton *enterButton;
@@ -28,15 +28,20 @@
 - (void)viewDidLoad {
     [super viewDidLoad];
     [Console init:self.logView withTextField:self.inputView withEnterButton:self.enterButton];
-    self.socket = [[MHUnicastSocket alloc] initWithServiceType:@"test"];
-    self.socket.delegate = self;
+    //self.uSocket = [[MHUnicastSocket alloc] initWithServiceType:@"test"];
+    //self.uSocket.delegate = self;
+    self.mSocket = [[MHMulticastSocket alloc] initWithServiceType:@"test"];
+    self.mSocket.delegate = self;
+    
     
     self.peers = [[NSMutableArray alloc] init];
     
     AppDelegate *appDelegate = (AppDelegate*)[[UIApplication sharedApplication] delegate];
 
-    [appDelegate setMHSocket:self.socket];
+    //[appDelegate setUniSocket:self.uSocket];
+    [appDelegate setMultiSocket:self.mSocket];
     
+    /*
     NSString *str = @"";
     self.count = 0;
     
@@ -63,7 +68,7 @@
             
             dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(10 * NSEC_PER_MSEC)), dispatch_get_main_queue(), weakSelf.send);
         }
-    };
+    };*/
     
     
     
@@ -83,15 +88,22 @@
         self.start = [d timeIntervalSince1970];
         str = @"-1-";
         
-        MHPacket *packet = [[MHPacket alloc] initWithSource:[self.socket getOwnPeer]
+        /*MHPacket *packet = [[MHPacket alloc] initWithSource:[self.uSocket getOwnPeer]
                                            withDestinations:self.peers
                                                    withData:[str dataUsingEncoding:NSUTF8StringEncoding]];
         
-        [self.socket sendPacket:packet error:&error];
+         */
+        MHPacket *packet = [[MHPacket alloc] initWithSource:[self.mSocket getOwnPeer]
+                                           withDestinations:[[NSArray alloc] initWithObjects:@"global", nil]
+                                                   withData:[str dataUsingEncoding:NSUTF8StringEncoding]];
+        
+        
+        [self.mSocket sendPacket:packet error:&error];
     }
     else
     {
-        [self.socket discover];
+        //[self.uSocket discover];
+        [self.mSocket joinGroup:@"global"];
         //str = data;
     }
 
@@ -123,11 +135,11 @@
 
     if([receivedMessage isEqualToString:@"-1-"]) {
         NSError *error;
-        MHPacket *packet = [[MHPacket alloc] initWithSource:[self.socket getOwnPeer]
+        MHPacket *packet = [[MHPacket alloc] initWithSource:[self.uSocket getOwnPeer]
                                            withDestinations:self.peers
                                                    withData:[@"-2-" dataUsingEncoding:NSUTF8StringEncoding]];
         
-        [self.socket sendPacket:packet error:&error];
+        [self.uSocket sendPacket:packet error:&error];
     }
     else if([receivedMessage isEqualToString:@"-2-"])
     {
@@ -145,7 +157,6 @@
             [Console writeLine: [NSString stringWithFormat:@"msg n %lu", self.count]];//[NSString stringWithFormat:@"Msg: %@", receivedMessage]];
         }
     }
-    
 }
 
 - (void)mhUnicastSocket:(MHUnicastSocket *)mhUnicastSocket
@@ -167,6 +178,34 @@
 }
 
 
+#pragma mark - MulticastSocketDelegate methods
+- (void)mhMulticastSocket:(MHMulticastSocket *)mhMulticastSocket
+          failedToConnect:(NSError *)error
+{
+    [Console writeLine: @"Failed to connect..."];
+}
 
+- (void)mhMulticastSocket:(MHMulticastSocket *)mhMulticastSocket
+         didReceivePacket:(MHPacket *)packet
+{
+    // Decode the incoming data to a UTF8 encoded string
+    NSString *receivedMessage = [[NSString alloc] initWithData:packet.data encoding: NSUTF8StringEncoding];
+    
+    if([receivedMessage isEqualToString:@"-1-"]) {
+        NSError *error;
+        MHPacket *packet = [[MHPacket alloc] initWithSource:[self.mSocket getOwnPeer]
+                                           withDestinations:[[NSArray alloc] initWithObjects:@"global", nil]
+                                                   withData:[@"-2-" dataUsingEncoding:NSUTF8StringEncoding]];
+
+        [self.mSocket sendPacket:packet error:&error];
+    }
+    else if([receivedMessage isEqualToString:@"-2-"])
+    {
+        NSDate* d = [NSDate date];
+        NSTimeInterval end = [d timeIntervalSince1970];
+        NSTimeInterval timeInterval = end - self.start;
+        [Console writeLine: [NSString stringWithFormat:@"Received reply in %.3f seconds", timeInterval]];
+    }
+}
 
 @end

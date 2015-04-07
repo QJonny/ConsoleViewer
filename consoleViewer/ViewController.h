@@ -10,9 +10,11 @@
 #import "AppDelegate.h"
 #import "Console.h"
 #import "MHUnicastSocket.h"
+#import "MHMulticastSocket.h"
 
 @interface ViewController : UIViewController
 
-@property MHUnicastSocket* socket;
+@property MHUnicastSocket* uSocket;
+@property MHMulticastSocket* mSocket;
 @end
 
