@@ -98,7 +98,9 @@
                                                    withData:[str dataUsingEncoding:NSUTF8StringEncoding]];
         
         
-        [self.mSocket sendPacket:packet error:&error];
+        //s[self.mSocket sendPacket:packet error:&error];
+        MHLocation *loc = [[MHLocationManager getSingleton] getMPosition];
+        [Console writeLine:[NSString stringWithFormat:@"Position - x:%i m, y:%i m", (int)loc.x, (int)loc.y]];
     }
     else
     {
