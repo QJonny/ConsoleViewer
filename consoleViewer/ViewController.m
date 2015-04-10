@@ -19,6 +19,8 @@
 
 @property (nonatomic)NSMutableArray *peers;
 
+@property (nonatomic)NSString* group;
+
 @property (nonatomic) NSTimeInterval start;
 @end
 
@@ -98,14 +100,14 @@
                                                    withData:[str dataUsingEncoding:NSUTF8StringEncoding]];
         
         
-        //s[self.mSocket sendPacket:packet error:&error];
-        MHLocation *loc = [[MHLocationManager getSingleton] getMPosition];
-        [Console writeLine:[NSString stringWithFormat:@"Position - x:%i m, y:%i m", (int)loc.x, (int)loc.y]];
+        [self.mSocket sendPacket:packet error:&error];
+        //MHLocation *loc = [[MHLocationManager getSingleton] getMPosition];
+        //[Console writeLine:[NSString stringWithFormat:@"Position - x:%i m, y:%i m", (int)loc.x, (int)loc.y]];
     }
     else
     {
         //[self.uSocket discover];
-        [self.mSocket joinGroup:@"global"];
+        [self.mSocket joinGroup:data];
         //str = data;
     }
 
@@ -195,11 +197,12 @@
     
     if([receivedMessage isEqualToString:@"-1-"]) {
         NSError *error;
-        MHPacket *packet = [[MHPacket alloc] initWithSource:[self.mSocket getOwnPeer]
+       /* MHPacket *packet = [[MHPacket alloc] initWithSource:[self.mSocket getOwnPeer]
                                            withDestinations:[[NSArray alloc] initWithObjects:@"global", nil]
                                                    withData:[@"-2-" dataUsingEncoding:NSUTF8StringEncoding]];
 
-        [self.mSocket sendPacket:packet error:&error];
+        [self.mSocket sendPacket:packet error:&error];*/
+        [Console writeLine: @"received packet"];
     }
     else if([receivedMessage isEqualToString:@"-2-"])
     {
