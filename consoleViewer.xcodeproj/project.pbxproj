@@ -7,6 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		2B1426321ADAA98D002FC7AF /* MHIdGenerator.m in Sources */ = {isa = PBXBuildFile; fileRef = 2B1426311ADAA98D002FC7AF /* MHIdGenerator.m */; };
 		2B1E0B251AD183D600564D48 /* MH6ShotsScheduler.m in Sources */ = {isa = PBXBuildFile; fileRef = 2B1E0B241AD183D600564D48 /* MH6ShotsScheduler.m */; };
 		2B1E0B291AD183F300564D48 /* MHLocationManager.m in Sources */ = {isa = PBXBuildFile; fileRef = 2B1E0B281AD183F300564D48 /* MHLocationManager.m */; };
 		2B1E0B2B1AD1841000564D48 /* CoreLocation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 2B1E0B2A1AD1841000564D48 /* CoreLocation.framework */; };
@@ -44,6 +45,8 @@
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
+		2B1426301ADAA98D002FC7AF /* MHIdGenerator.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = MHIdGenerator.h; path = "../../multihop-lib-ios/Multihop/MHIdGenerator.h"; sourceTree = "<group>"; };
+		2B1426311ADAA98D002FC7AF /* MHIdGenerator.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = MHIdGenerator.m; path = "../../multihop-lib-ios/Multihop/MHIdGenerator.m"; sourceTree = "<group>"; };
 		2B1E0B231AD183D600564D48 /* MH6ShotsScheduler.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = MH6ShotsScheduler.h; path = "../../multihop-lib-ios/Multihop/MH6ShotsScheduler.h"; sourceTree = "<group>"; };
 		2B1E0B241AD183D600564D48 /* MH6ShotsScheduler.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = MH6ShotsScheduler.m; path = "../../multihop-lib-ios/Multihop/MH6ShotsScheduler.m"; sourceTree = "<group>"; };
 		2B1E0B271AD183F300564D48 /* MHLocationManager.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = MHLocationManager.h; path = "../../multihop-lib-ios/Multihop/MHLocationManager.h"; sourceTree = "<group>"; };
@@ -113,6 +116,8 @@
 		2B1E0B261AD183DC00564D48 /* Utils */ = {
 			isa = PBXGroup;
 			children = (
+				2B1426301ADAA98D002FC7AF /* MHIdGenerator.h */,
+				2B1426311ADAA98D002FC7AF /* MHIdGenerator.m */,
 				2B1E0B271AD183F300564D48 /* MHLocationManager.h */,
 				2B1E0B281AD183F300564D48 /* MHLocationManager.m */,
 			);
@@ -414,6 +419,7 @@
 				2B8092B81A9F69620059F89D /* main.m in Sources */,
 				2B8093511AB895710059F89D /* MHPeer.m in Sources */,
 				2B8093541AB895B20059F89D /* MHMultipeerWrapper.m in Sources */,
+				2B1426321ADAA98D002FC7AF /* MHIdGenerator.m in Sources */,
 				2BBA88171AC466230032E360 /* MHConnectionsHandler.m in Sources */,
 				2B1E0B291AD183F300564D48 /* MHLocationManager.m in Sources */,
 				2BBD18931ACEC597003BBB64 /* MHPacket.m in Sources */,

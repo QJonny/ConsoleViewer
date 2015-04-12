@@ -107,7 +107,7 @@
     else
     {
         //[self.uSocket discover];
-        [self.mSocket joinGroup:data];
+        [self.mSocket joinGroup:@"global"];
         //str = data;
     }
 
