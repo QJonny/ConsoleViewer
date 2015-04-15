@@ -42,36 +42,7 @@
 
     //[appDelegate setUniSocket:self.uSocket];
     [appDelegate setMultiSocket:self.mSocket];
-    
-    /*
-    NSString *str = @"";
-    self.count = 0;
-    
-    for (int i = 0; i < 1000; i++)
-    {
-        str = [NSString stringWithFormat:@"%@%@", str, @"0000000000"];
-    }
 
-    
-    [Console writeLine:[NSString stringWithFormat:@"Length: %lu bytes", str.length]];
-    
-    ViewController * __weak weakSelf = self;
-    
-    
-    self.send = ^{
-        if (weakSelf)
-        {
-            MHPacket *packet = [[MHPacket alloc] initWithSource:[weakSelf.socket getOwnPeer]
-                                               withDestinations:weakSelf.peers
-                                                       withData:[str dataUsingEncoding:NSUTF8StringEncoding]];
-            NSError *error;
-            [weakSelf.socket sendPacket:packet error:&error];
-
-            
-            dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(10 * NSEC_PER_MSEC)), dispatch_get_main_queue(), weakSelf.send);
-        }
-    };*/
-    
     
     
     [Console writeLine: @"You are currently alone."];
@@ -94,15 +65,14 @@
                                            withDestinations:self.peers
                                                    withData:[str dataUsingEncoding:NSUTF8StringEncoding]];
         
-         */
+        [self.uSocket sendPacket:packet error:&error];*/
+        
         MHPacket *packet = [[MHPacket alloc] initWithSource:[self.mSocket getOwnPeer]
                                            withDestinations:[[NSArray alloc] initWithObjects:@"global", nil]
                                                    withData:[str dataUsingEncoding:NSUTF8StringEncoding]];
         
         
         [self.mSocket sendPacket:packet error:&error];
-        //MHLocation *loc = [[MHLocationManager getSingleton] getMPosition];
-        //[Console writeLine:[NSString stringWithFormat:@"Position - x:%i m, y:%i m", (int)loc.x, (int)loc.y]];
     }
     else
     {
@@ -110,10 +80,6 @@
         [self.mSocket joinGroup:@"global"];
         //str = data;
     }
-
-    
-    /*dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(1000 * NSEC_PER_MSEC)), dispatch_get_main_queue(), self.send);
-    */
 }
 
 - (void)didReceiveMemoryWarning {
@@ -129,6 +95,8 @@
 }
 
 
+
+
 #pragma mark - MHUnicastSocketDelegate methods
 
 - (void)mhUnicastSocket:(MHUnicastSocket *)mhUnicastSocket
@@ -138,12 +106,13 @@
     NSString *receivedMessage = [[NSString alloc] initWithData:packet.data encoding: NSUTF8StringEncoding];
 
     if([receivedMessage isEqualToString:@"-1-"]) {
-        NSError *error;
+        /*NSError *error;
         MHPacket *packet = [[MHPacket alloc] initWithSource:[self.uSocket getOwnPeer]
                                            withDestinations:self.peers
                                                    withData:[@"-2-" dataUsingEncoding:NSUTF8StringEncoding]];
         
-        [self.uSocket sendPacket:packet error:&error];
+        [self.uSocket sendPacket:packet error:&error];*/
+        [Console writeLine: [NSString stringWithFormat:@"received packet from %@", packet.source]];
     }
     else if([receivedMessage isEqualToString:@"-2-"])
     {
@@ -151,15 +120,6 @@
         NSTimeInterval end = [d timeIntervalSince1970];
         NSTimeInterval timeInterval = end - self.start;
         [Console writeLine: [NSString stringWithFormat:@"Received reply in %.3f seconds", timeInterval]];
-    }
-    else
-    {
-        self.count++;
-        
-        if(self.count % 100 == 0)
-        {
-            [Console writeLine: [NSString stringWithFormat:@"msg n %lu", self.count]];//[NSString stringWithFormat:@"Msg: %@", receivedMessage]];
-        }
     }
 }
 
@@ -182,6 +142,10 @@
 }
 
 
+
+
+
+
 #pragma mark - MulticastSocketDelegate methods
 - (void)mhMulticastSocket:(MHMulticastSocket *)mhMulticastSocket
           failedToConnect:(NSError *)error
@@ -202,7 +166,7 @@
                                                    withData:[@"-2-" dataUsingEncoding:NSUTF8StringEncoding]];
 
         [self.mSocket sendPacket:packet error:&error];*/
-        [Console writeLine: @"received packet"];
+        [Console writeLine: [NSString stringWithFormat:@"received packet from %@", packet.source]];
     }
     else if([receivedMessage isEqualToString:@"-2-"])
     {
