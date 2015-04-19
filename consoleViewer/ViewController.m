@@ -45,7 +45,7 @@
 
     
     
-    [Console writeLine: @"You are currently alone."];
+    [Console writeLine: [NSString stringWithFormat:@"You have peerID %@", [self.mSocket getOwnPeer]]];
     
     [Console writeLine:@"Type Enter for sending a message"];
     [Console readLine:@selector(continueProc:) withObject:self];
